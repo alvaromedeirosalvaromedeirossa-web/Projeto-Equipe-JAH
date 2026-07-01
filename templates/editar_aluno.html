@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Editar Aluno</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Montserrat', 'sans-serif'] },
+                    colors: { brand: { 500: '#f97316', 600: '#ea580c' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-zinc-100 font-sans min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-md w-full bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-2xl relative">
+        <div class="absolute top-6 right-8 text-zinc-800/40 text-5xl font-black pointer-events-none uppercase font-heading">
+            EDIT
+        </div>
+
+        <div class="mb-6">
+            <h1 class="font-heading font-black text-2xl uppercase tracking-wider text-white">
+                Editar <span class="text-brand-500">Atleta</span>
+            </h1>
+            <p class="text-zinc-400 text-xs mt-1">Atualize as informações do perfil selecionado.</p>
+        </div>
+
+        {% if mensagem %}
+        <div class="mb-4 p-3 bg-brand-500/10 border border-brand-500/20 text-brand-500 rounded-xl text-xs text-center font-semibold">
+            {{ mensagem }}
+        </div>
+        {% endif %}
+
+        <form action="/atualizar_aluno/{{ aluno[0] }}" method="POST" class="space-y-4">
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Nome Completo</label>
+                <input type="text" name="nome" value="{{ aluno[1] }}" required
+                       class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white transition-colors">
+            </div>
+
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">E-mail</label>
+                <input type="email" name="email" value="{{ aluno[2] }}" required
+                       class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white transition-colors">
+            </div>
+
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Telefone / Telemóvel</label>
+                <input type="text" name="telefone" value="{{ aluno[3] }}"
+                       class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white transition-colors">
+            </div>
+
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Número de Matrícula</label>
+                <input type="text" name="matricula" value="{{ aluno[4] }}"
+                       class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white transition-colors">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Peso (kg)</label>
+                    <input type="number" step="0.01" name="peso" value="{{ aluno[5] }}"
+                           class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white transition-colors">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Altura (m)</label>
+                    <input type="number" step="0.01" name="altura" value="{{ aluno[6] }}"
+                           class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white transition-colors">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 pt-4">
+                <a href="/alunos" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold uppercase py-3.5 rounded-xl transition-all tracking-wider text-xs text-center border border-zinc-700">
+                    Cancelar
+                </a>
+                <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-black uppercase py-3.5 rounded-xl transition-all shadow-lg shadow-brand-500/10 tracking-wider text-xs">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
