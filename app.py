@@ -1,24 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
+from database import *
+criar_tabelas()
 
 # LOGIN PADRÃO
 loginPadrao = "admin"
 senhaPadrao = "123"
-
-# Listas na memória para simular o Banco de Dados (Evita erros ao testar)
-lista_alunos = [
-    # Exemplo: [id, nome, email, telefone, matricula, peso, altura]
-    [1, "João Silva", "joao@email.com", "912345678", "MAT101", 80.0, 1.80]
-]
-lista_instrutores = [
-    # Exemplo: [id, nome, email, telefone, cref]
-    [1, "Carlos Treinador", "carlos@email.com", "987654321", "CREF1234"]
-]
-
-# ID autoincremento para as simulações
-proximo_id_aluno = 2
-proximo_id_instrutor = 2
 
 # ------------------ HOME ------------------
 @app.route('/')
@@ -66,7 +54,8 @@ def sair():
 # 1. Listar Alunos e abrir página de cadastro
 @app.route("/alunos")
 def listar_alunos():
-    return render_template("alunos.html", alunos=lista_alunos)
+    alunos = listar_alunos_db()
+    return render_template("alunos.html", alunos=alunos)
 
 # 2. Cadastrar Aluno
 @app.route("/cadastrar_aluno", methods=['POST'])
@@ -81,24 +70,27 @@ def cadastrar_aluno():
     altura = request.form.get("altura")
     
     # Adiciona na lista simulada
-    lista_alunos.append([proximo_id_aluno, nome, email, telefone, matricula, peso, altura])
-    proximo_id_aluno += 1
-    
-    return redirect(url_for('listar_alunos'))
+    @app.route("/cadastrar_aluno", methods=["POST"])
+    def cadastrar_aluno():
+
+        inserir_aluno(
+            request.form.get("nome"),
+            request.form.get("email"),
+            request.form.get("telefone"),
+            request.form.get("matricula"),
+            request.form.get("peso"),
+            request.form.get("altura")
+        )
+
+        return redirect(url_for("listar_alunos"))
 
 # 3. Abrir página de Edição de Aluno
 @app.route("/editar_aluno/<int:id>")
 def editar_aluno(id):
     # Procura o aluno pelo ID na nossa lista
-    aluno_encontrado = None
-    for aluno in lista_alunos:
-        if aluno[0] == id:
-            aluno_encontrado = aluno
-            break
-            
-    if aluno_encontrado:
-        return render_template("editar_aluno.html", aluno=aluno_encontrado)
-    return redirect(url_for('listar_alunos'))
+    aluno = buscar_aluno(id)
+
+    return render_template("editar_aluno.html", aluno=aluno)
 
 # 4. Salvar Alterações do Aluno (Atualizar)
 @app.route("/atualizar_aluno/<int:id>", methods=['POST'])
@@ -111,25 +103,22 @@ def atualizar_aluno(id):
     altura = request.form.get("altura")
     
     # Atualiza o aluno correspondente
-    for aluno in lista_alunos:
-        if aluno[0] == id:
-            aluno[1] = nome
-            aluno[2] = email
-            aluno[3] = telefone
-            aluno[4] = matricula
-            aluno[5] = peso
-            aluno[6] = altura
-            break
-            
-    return redirect(url_for('listar_alunos'))
+    atualizar_aluno_db(
+        id,
+        nome,
+        email,
+        telefone,
+        matricula,
+        peso,
+        altura
+    )
 
 # 5. Excluir Aluno
 @app.route("/excluir_aluno/<int:id>")
 def excluir_aluno(id):
     global lista_alunos
     # Filtra a lista removendo o aluno com o ID selecionado
-    lista_alunos = [aluno for aluno in lista_alunos if aluno[0] != id]
-    return redirect(url_for('listar_alunos'))
+    excluir_aluno(id)
 
 
 # ------------------ ROTAS DE INSTRUTORES ------------------
@@ -137,7 +126,8 @@ def excluir_aluno(id):
 # 1. Listar Instrutores e abrir página de cadastro
 @app.route("/instrutores")
 def listar_instrutores():
-    return render_template("instrutores.html", instrutores=lista_instrutores)
+    instrutores = listar_instrutores_db()
+    return render_template("instrutores.html", instrutores=instrutores)
 
 # 2. Cadastrar Instrutor
 @app.route("/cadastrar_instrutor", methods=['POST'])
@@ -150,18 +140,24 @@ def cadastrar_instrutor():
     cref = request.form.get("cref")
     
     # Adiciona na lista simulada de instrutores
-    lista_instrutores.append([proximo_id_instrutor, nome, email, telefone, cref])
-    proximo_id_instrutor += 1
-    
-    return redirect(url_for('listar_instrutores'))
+    @app.route("/cadastrar_instrutor", methods=["POST"])
+    def cadastrar_instrutor():
+
+        inserir_instrutor(
+            request.form.get("nome"),
+            request.form.get("email"),
+            request.form.get("telefone"),
+            request.form.get("matricula"),
+            request.form.get("peso"),
+            request.form.get("altura")
+            )
 
 # 3. Excluir Instrutor
 @app.route("/excluir_instrutor/<int:id>")
 def excluir_instrutor(id):
     global lista_instrutores
     # Filtra a lista removendo o instrutor com o ID selecionado
-    lista_instrutores = [i for i in lista_instrutores if i[0] != id]
-    return redirect(url_for('listar_instrutores'))
+    excluir_instrutor(id)
 
 
 if __name__ == '__main__':
