@@ -53,6 +53,9 @@ def criar_tabelas():
         descricao TEXT,
         aluno_id INTEGER NOT NULL,
         instrutor_id INTEGER NOT NULL
+
+        FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+        FOREIGN KEY (instrutor_id) REFERENCES instrutores(id)
     )
     """)
 
@@ -61,8 +64,10 @@ def criar_tabelas():
     CREATE TABLE IF NOT EXISTS treino_exercicios (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         treino_id INTEGER NOT NULL,
-        exercicio_id INTEGER NOT NULL,
-        PRIMARY KEY (treino_id, exercicio_id)
+        exercicio_id INTEGER NOT NULL
+
+        FOREIGN KEY (treino_id) REFERENCES treinos(id),
+        FOREIGN KEY (exercicio_id) REFERENCES exercicios(id)
     )
     """)
 
@@ -85,6 +90,9 @@ def criar_tabelas():
         valor REAL NOT NULL,
         data TEXT NOT NULL,
         status TEXT NOT NULL
+
+        FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+        FOREIGN KEY (plano_id) REFERENCES planos(id)
     )
     """)
 
@@ -95,6 +103,8 @@ def criar_tabelas():
         aluno_id INTEGER NOT NULL,
         tipo TEXT NOT NULL,
         arquivo TEXT NOT NULL
+
+        FOREIGN KEY (aluno_id) REFERENCES alunos(id)
     )
     """)
 
@@ -109,6 +119,9 @@ def criar_tabelas():
         imc REAL,
         percentual_gordura REAL,
         observacoes TEXT
+
+        FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+        FOREIGN KEY (instrutor_id) REFERENCES instrutores(id)
     )
     """)
 
@@ -130,6 +143,10 @@ def criar_tabelas():
         instrutor_id INTEGER NOT NULL,
         horario_id INTEGER NOT NULL,
         status TEXT NOT NULL
+
+        FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+        FOREIGN KEY (instrutor_id) REFERENCES instrutores(id),
+        FOREIGN KEY (horario_id) REFERENCES horarios(id)
     )
     """)
 
@@ -250,7 +267,7 @@ def inserir_instrutor(nome, email, telefone, cref, especialidade):
     cursor.execute("""
     INSERT INTO instrutores
     (nome,email,telefone,cref,especialidade)
-    VALUES (?,?,?,?)
+    VALUES (?,?,?,?,?)
     """, (nome, email, telefone, cref, especialidade))
 
     conexao.commit()
