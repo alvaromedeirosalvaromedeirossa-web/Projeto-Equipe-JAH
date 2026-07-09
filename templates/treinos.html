@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Gerenciar Treinos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Montserrat', 'sans-serif'] },
+                    colors: { brand: { 500: '#f97316', 600: '#ea580c' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-zinc-100 font-sans min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-6 mb-8 gap-4">
+            <div>
+                <h1 class="font-heading font-black text-3xl uppercase tracking-wider text-white">
+                    Gestão de <span class="text-brand-500">Treinos</span>
+                </h1>
+                <p class="text-zinc-400 text-sm mt-1">Cadastre e gerencie todos os treinos da academia.</p>
+            </div>
+            <a href="/painel" class="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-sm px-5 py-2.5 rounded-xl border border-zinc-800 transition-all">
+                <i class="fa-solid fa-arrow-left text-zinc-400"></i> Voltar ao Painel
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl shadow-xl">
+                <h2 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-brand-500"></i> Novo Treino
+                </h2>
+                
+                <form action="/cadastrar_treino" method="POST" class="space-y-4">
+
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                            Nome do Treino
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nome"
+                            required
+                            placeholder="Ex: Treino A"
+                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            name="descricao"
+                            rows="3"
+                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 text-white"
+                            placeholder="Descrição do treino"></textarea>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                            Aluno
+                        </label>
+
+                        <select
+                            name="aluno_id"
+                            required
+                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white">
+
+                            {% for aluno in alunos %}
+                                <option value="{{ aluno[0] }}">
+                                    {{ aluno[1] }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                            Instrutor
+                        </label>
+
+                        <select
+                            name="instrutor_id"
+                            required
+                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white">
+
+                            {% for instrutor in instrutores %}
+                                <option value="{{ instrutor[0] }}">
+                                    {{ instrutor[1] }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-brand-500 hover:bg-brand-600 text-white font-black uppercase py-3 rounded-xl">
+
+                        Cadastrar Treino
+
+                    </button>
+
+                </form>
+
+                {% if mensagem %}
+                <div class="mt-4 p-3 bg-brand-500/10 border border-brand-500/20 text-brand-500 rounded-xl text-xs text-center font-semibold">
+                    {{ mensagem }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="lg:col-span-2 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-6 border-b border-zinc-800">
+                    <h2 class="font-heading font-black text-xl uppercase tracking-wide text-white flex items-center gap-2">
+                        <i class="fa-solid fa-users text-brand-500"></i> Treinos Cadastrados
+                    </h2>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+
+                        <tr>
+
+                        <th>ID</th>
+
+                        <th>Treino</th>
+
+                        <th>Descrição</th>
+
+                        <th>Aluno</th>
+
+                        <th>Instrutor</th>
+
+                        <th>Ações</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody class="divide-y divide-zinc-800/50 text-sm">
+                            {% for treino in treinos %}
+                            <tr>
+
+                            <td>#{{ treino[0] }}</td>
+
+                            <td>{{ treino[1] }}</td>
+
+                            <td>{{ treino[2] }}</td>
+
+                            <td>{{ treino[3] }}</td>
+
+                            <td>{{ treino[4] }}</td>
+
+                            <td>
+
+                            <a href="/editar_treino/{{ treino[0] }}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                            <a href="/excluir_treino/{{ treino[0] }}"
+                            onclick="return confirm('Excluir treino?')">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            </a>
+
+                            </td>
+
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="px-6 py-10 text-center text-zinc-500 text-sm">
+                                    <i class="fa-solid fa-dumbbell text-2xl block mb-2 text-zinc-700"></i>
+                                    Nenhum treino cadastrado.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

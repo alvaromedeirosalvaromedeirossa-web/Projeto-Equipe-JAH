@@ -36,7 +36,7 @@
         </div>
         {% endif %}
 
-        <div class="bg-zinc-900 border border-zinc-800 p-8 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden max-w-3xl mx-auto w-full">
+        <div class="bg-zinc-900 border border-zinc-800 p-8 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden max-w-6xl mx-auto w-full">
             
             <div class="absolute -top-6 -right-6 text-zinc-800/20 text-8xl font-black pointer-events-none uppercase font-heading select-none">
                 HQ
@@ -52,66 +52,240 @@
 
                 <a href="/">
                     <button class="inline-flex items-center gap-2 bg-zinc-800/50 hover:bg-red-950/40 border border-zinc-700/60 hover:border-red-900 text-zinc-400 hover:text-red-400 font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-xl transition-all">
-                        <i class="fa-solid fa-right-from-bracket"></i> Sair
+                        <i class="fa-solid fa-right-from-bracket"></i> Encerrar sessão
                     </button>
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                
-                <div class="bg-black/40 border border-zinc-800/80 p-5 rounded-2xl flex items-center justify-between">
-                    <div class="space-y-1">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Atletas Ativos</span>
-                        <div class="font-heading font-black text-3xl text-white">
-                            {{ total_alunos if total_alunos is defined else '1' }}
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+
+                <!-- Alunos -->
+                <div class="bg-black/40 border border-zinc-800 rounded-2xl p-5">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-zinc-500 text-xs uppercase">Alunos</p>
+                            <h2 class="text-3xl font-black font-heading text-white">
+                                {{ total_alunos if total_alunos is defined else '0' }}
+                            </h2>
                         </div>
-                    </div>
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-500 text-xl">
-                        <i class="fa-solid fa-dumbbell"></i>
+
+                        <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                            <i class="fa-solid fa-users text-brand-500 text-xl"></i>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-black/40 border border-zinc-800/80 p-5 rounded-2xl flex items-center justify-between">
-                    <div class="space-y-1">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Status do Sistema</span>
-                        <div class="text-sm font-bold text-emerald-500 flex items-center gap-1.5 pt-2">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Online e Seguro
+                <!-- Instrutores -->
+                <div class="bg-black/40 border border-zinc-800 rounded-2xl p-5">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-zinc-500 text-xs uppercase">Instrutores</p>
+                            <h2 class="text-3xl font-black font-heading text-white">
+                                {{ total_instrutores if total_instrutores is defined else '0' }}
+                            </h2>
+                        </div>
+
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                            <i class="fa-solid fa-user-tie text-blue-400 text-xl"></i>
                         </div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 text-xl">
-                        <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <!-- Treinos -->
+                <div class="bg-black/40 border border-zinc-800 rounded-2xl p-5">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-zinc-500 text-xs uppercase">Treinos</p>
+                            <h2 class="text-3xl font-black font-heading text-white">
+                                {{ total_treinos if total_treinos is defined else '0' }}
+                            </h2>
+                        </div>
+
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
+                            <i class="fa-solid fa-dumbbell text-green-400 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sistema -->
+                <div class="bg-black/40 border border-zinc-800 rounded-2xl p-5">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-zinc-500 text-xs uppercase">Sistema</p>
+
+                            <span class="text-green-400 font-bold">
+                                Online
+                            </span>
+                        </div>
+
+                        <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
+                            <i class="fa-solid fa-shield-halved text-green-400 text-xl"></i>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <div class="space-y-4">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-2">Módulos de Gestão</span>
-                
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+                    Módulos de Gestão
+                </span>
+
+                <!-- Alunos -->
                 <a href="/alunos" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500 transition-colors">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div>
-                            <span class="font-bold text-white block group-hover:text-brand-500 transition-colors">Gerenciar Alunos</span>
-                            <span class="text-zinc-500 text-xs">Matrículas, perfis corporais e dados de atletas.</span>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Gerenciar Alunos</span>
+                            <span class="text-zinc-500 text-xs">Cadastro e gerenciamento dos alunos.</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500 group-hover:translate-x-1 transition-all"></i>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
                 </a>
 
+                <!-- Instrutores -->
                 <a href="/instrutores" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500 transition-colors">
-                            <i class="fa-solid fa-user-shield"></i>
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-user-tie"></i>
                         </div>
                         <div>
-                            <span class="font-bold text-white block group-hover:text-brand-500 transition-colors">Gerenciar Instrutores</span>
-                            <span class="text-zinc-500 text-xs">Equipe técnica, dados profissionais e CREF.</span>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Gerenciar Instrutores</span>
+                            <span class="text-zinc-500 text-xs">Equipe técnica e CREF.</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500 group-hover:translate-x-1 transition-all"></i>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Exercícios -->
+                <a href="/exercicios" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Gerenciar Exercícios</span>
+                            <span class="text-zinc-500 text-xs">Cadastro dos exercícios.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Treinos -->
+                <a href="/treinos" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Gerenciar Treinos</span>
+                            <span class="text-zinc-500 text-xs">Treinos dos alunos.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Avaliações -->
+                <a href="/avaliacoes" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Avaliações Físicas</span>
+                            <span class="text-zinc-500 text-xs">Avaliações dos alunos.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Agendamentos -->
+                <a href="/agendamentos" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Agendamentos</span>
+                            <span class="text-zinc-500 text-xs">Avaliações e horários.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Horários -->
+                <a href="/horarios" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Horários</span>
+                            <span class="text-zinc-500 text-xs">Horários disponíveis.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Planos -->
+                <a href="/planos" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Planos</span>
+                            <span class="text-zinc-500 text-xs">Planos da academia.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Pagamentos -->
+                <a href="/pagamentos" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Pagamentos</span>
+                            <span class="text-zinc-500 text-xs">Controle financeiro.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Documentos -->
+                <a href="/documentos" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Documentos</span>
+                            <span class="text-zinc-500 text-xs">Arquivos enviados pelos alunos.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
+                </a>
+
+                <!-- Treino x Exercícios -->
+                <a href="/treino_exercicios" class="group flex items-center justify-between bg-zinc-800/30 hover:bg-zinc-800/70 border border-zinc-800 hover:border-zinc-700 p-4 rounded-xl transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-brand-500/30 flex items-center justify-center text-zinc-400 group-hover:text-brand-500">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white block group-hover:text-brand-500">Treino × Exercícios</span>
+                            <span class="text-zinc-500 text-xs">Associe exercícios aos treinos.</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-zinc-600 group-hover:text-brand-500"></i>
                 </a>
 
             </div>
