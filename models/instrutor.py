@@ -1,31 +1,11 @@
-from models.pessoa import Pessoa
+from .pessoa import Pessoa
 
 class Instrutor(Pessoa):
-    def __init__(self, nome, email, telefone, cref, especialidade):
-        super().__init__(nome, email, telefone)
+    def __init__(self, id, nome, email, telefone, cref, especialidade):
+        super().__init__(id, nome, email, telefone)
+        self.cref = cref
+        self.especialidade = especialidade
 
-        self.__cref = cref
-        self.__especialidade = especialidade
-
-    # Getters e Setters
-    def get_cref(self):
-        return self.__cref
-
-    def set_cref(self, cref):
-        self.__cref = cref
-
-    def get_especialidade(self):
-        return self.__especialidade
-
-    def set_especialidade(self, especialidade):
-        self.__especialidade = especialidade
-
-    # Métodos
-    def criar_treino(self, aluno):
-        return f"Treino criado para o aluno {aluno}."
-
-    def realizar_avalicao(self, aluno):
-        return f"Avaliação realizada para o aluno {aluno}."
-
-    def consultar_agenda(self):
-        return f"Agenda do instrutor exibida com sucesso."
+    def criar_treino(self, aluno=None): return "Treino criado." if aluno is None else f"Treino criado para {aluno}."
+    def realizar_avaliacao(self, aluno=None): return "Avaliação realizada." if aluno is None else f"Avaliação realizada para {aluno}."
+    def consultar_agenda(self): return "Agenda exibida com sucesso."

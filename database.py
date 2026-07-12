@@ -1,7 +1,12 @@
 import sqlite3
+from pathlib import Path
+
+DB_PATH = Path(__file__).with_name("academia.db")
 
 def conectar():
-    return sqlite3.connect("academia.db")
+    conexao = sqlite3.connect(DB_PATH)
+    conexao.execute("PRAGMA foreign_keys = ON")
+    return conexao
 
 
 def criar_tabelas():
@@ -65,7 +70,7 @@ def criar_tabelas():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         treino_id INTEGER NOT NULL,
         exercicio_id INTEGER NOT NULL,
-
+        UNIQUE (treino_id, exercicio_id),
         FOREIGN KEY (treino_id) REFERENCES treinos(id),
         FOREIGN KEY (exercicio_id) REFERENCES exercicios(id)
     )
