@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import database as db
+
 from models.aluno import Aluno
 from models.instrutor import Instrutor
 from models.exercicio import Exercicio
@@ -30,7 +31,7 @@ def autenticar():
 
 @app.route("/autentica", methods=["POST"])
 def informacoes_pessoais():
-    return render_template("Informações Pessoais.html", plano_escolhido=request.form.get("plano"), preco_escolhido=request.form.get("preco"), periodo_escolhido=request.form.get("periodo"))
+    return render_template("Informacoes_pessoais.html", plano_escolhido=request.form.get("plano"), preco_escolhido=request.form.get("preco"), periodo_escolhido=request.form.get("periodo"))
 
 @app.route("/painel")
 def painel():
@@ -55,7 +56,7 @@ def cadastrar_aluno():
 @app.route("/editar_aluno/<int:id>")
 def editar_aluno(id):
     obj = db.buscar_aluno(id)
-    return render_template("editar_aluno.html", aluno=obj)
+    return render_template("editar/editar_aluno.html", aluno=obj)
 
 @app.route("/atualizar_aluno/<int:id>", methods=["POST"])
 def atualizar_aluno_rota(id):
@@ -84,7 +85,7 @@ def cadastrar_instrutor():
 @app.route("/editar_instrutor/<int:id>")
 def editar_instrutor(id):
     obj = db.buscar_instrutor(id)
-    return render_template("editar_instrutor.html", instrutor=obj)
+    return render_template("editar/editar_instrutor.html", instrutor=obj)
 
 @app.route("/atualizar_instrutor/<int:id>", methods=["POST"])
 def atualizar_instrutor_rota(id):
@@ -113,7 +114,7 @@ def cadastrar_exercicio():
 @app.route("/editar_exercicio/<int:id>")
 def editar_exercicio(id):
     obj = db.buscar_exercicios(id)
-    return render_template("editar_exercicio.html", exercicio=obj)
+    return render_template("editar/editar_exercicio.html", exercicio=obj)
 
 @app.route("/atualizar_exercicio/<int:id>", methods=["POST"])
 def atualizar_exercicio_rota(id):
@@ -131,8 +132,16 @@ def excluir_exercicio_rota(id):
 # ===========================
 @app.route("/treinos")
 def listar_treinos():
-    return render_template("treinos.html", treinos=db.listar_treinos())
+    treinos = db.listar_treinos()
+    alunos = db.listar_alunos_db()
+    instrutores = db.listar_instrutores()
 
+    return render_template(
+        "treinos.html",
+        treinos=treinos,
+        alunos=alunos,
+        instrutores=instrutores
+    )
 @app.route("/cadastrar_treino", methods=["POST"])
 def cadastrar_treino():
     obj = Treino(None, request.form.get('nome'), request.form.get('descricao'), request.form.get('aluno_id'), request.form.get('instrutor_id'))
@@ -142,7 +151,7 @@ def cadastrar_treino():
 @app.route("/editar_treino/<int:id>")
 def editar_treino(id):
     obj = db.buscar_treinos(id)
-    return render_template("editar_treino.html", treino=obj)
+    return render_template("editar/editar_treino.html", treino=obj)
 
 @app.route("/atualizar_treino/<int:id>", methods=["POST"])
 def atualizar_treino_rota(id):
@@ -171,7 +180,7 @@ def cadastrar_avaliacao():
 @app.route("/editar_avaliacao/<int:id>")
 def editar_avaliacao(id):
     obj = db.buscar_avaliacoes(id)
-    return render_template("editar_avaliacao.html", avaliacao=obj)
+    return render_template("editar/editar_avaliacao.html", avaliacao=obj)
 
 @app.route("/atualizar_avaliacao/<int:id>", methods=["POST"])
 def atualizar_avaliacao_rota(id):
@@ -200,7 +209,7 @@ def cadastrar_plano():
 @app.route("/editar_plano/<int:id>")
 def editar_plano(id):
     obj = db.buscar_planos(id)
-    return render_template("editar_plano.html", plano=obj)
+    return render_template("editar/editar_plano.html", plano=obj)
 
 @app.route("/atualizar_plano/<int:id>", methods=["POST"])
 def atualizar_plano_rota(id):
@@ -229,7 +238,7 @@ def cadastrar_pagamento():
 @app.route("/editar_pagamento/<int:id>")
 def editar_pagamento(id):
     obj = db.buscar_pagamentos(id)
-    return render_template("editar_pagamento.html", pagamento=obj)
+    return render_template("editar/editar_pagamento.html", pagamento=obj)
 
 @app.route("/atualizar_pagamento/<int:id>", methods=["POST"])
 def atualizar_pagamento_rota(id):
@@ -258,7 +267,7 @@ def cadastrar_documento():
 @app.route("/editar_documento/<int:id>")
 def editar_documento(id):
     obj = db.buscar_documentos(id)
-    return render_template("editar_documento.html", documento=obj)
+    return render_template("editar/editar_documento.html", documento=obj)
 
 @app.route("/atualizar_documento/<int:id>", methods=["POST"])
 def atualizar_documento_rota(id):
@@ -287,7 +296,7 @@ def cadastrar_horario():
 @app.route("/editar_horario/<int:id>")
 def editar_horario(id):
     obj = db.buscar_horarios(id)
-    return render_template("editar_horario.html", horario=obj)
+    return render_template("editar/editar_horario.html", horario=obj)
 
 @app.route("/atualizar_horario/<int:id>", methods=["POST"])
 def atualizar_horario_rota(id):
@@ -316,7 +325,7 @@ def cadastrar_agendamento():
 @app.route("/editar_agendamento/<int:id>")
 def editar_agendamento(id):
     obj = db.buscar_agendamentos(id)
-    return render_template("editar_agendamento.html", agendamento=obj)
+    return render_template("editar/editar_agendamento.html", agendamento=obj)
 
 @app.route("/atualizar_agendamento/<int:id>", methods=["POST"])
 def atualizar_agendamento_rota(id):
@@ -345,7 +354,7 @@ def cadastrar_treino_exercicio():
 @app.route("/editar_treino_exercicio/<int:id>")
 def editar_treino_exercicio(id):
     obj = db.buscar_treino_exercicios(id)
-    return render_template("editar_treino_exercicio.html", treino_exercicio=obj)
+    return render_template("editar/editar_treino_exercicio.html", treino_exercicio=obj)
 
 @app.route("/atualizar_treino_exercicio/<int:id>", methods=["POST"])
 def atualizar_treino_exercicio_rota(id):
@@ -357,6 +366,126 @@ def atualizar_treino_exercicio_rota(id):
 def excluir_treino_exercicio_rota(id):
     db.excluir_treino_exercicios(id)
     return redirect(url_for("listar_treino_exercicios"))
+
+
+# ==============================
+# ÁREA DO ALUNO
+# ==============================
+@app.route("/area_aluno")
+def area_aluno():
+
+    if "aluno" not in session:
+        return redirect(url_for("home"))
+
+    aluno = db.buscar_aluno_por_matricula(session["aluno"])
+
+    if aluno is None:
+        return redirect(url_for("home"))
+
+    plano = db.buscar_plano_do_aluno(aluno.id)
+
+    pagamentos = db.buscar_pagamentos_aluno(aluno.id)
+
+    treinos = db.buscar_treinos_aluno(aluno.id)
+
+    agendamentos = db.buscar_agendamentos_aluno(aluno.id)
+
+    proximo_agendamento = None
+
+    if len(agendamentos) > 0:
+        proximo_agendamento = agendamentos[0]
+
+    return render_template(
+        "area_aluno.html",
+        aluno=aluno,
+        plano=plano,
+        pagamentos=pagamentos,
+        treinos=treinos,
+        agendamentos=agendamentos,
+        proximo_agendamento=proximo_agendamento
+    )
+
+
+@app.route("/finalizar_cadastro", methods=["POST"])
+def finalizar_cadastro():
+
+    nome = request.form.get("nome")
+    email = request.form.get("email")
+    telefone = request.form.get("telefone")
+    matricula = request.form.get("matricula")
+    peso = float(request.form.get("peso"))
+    altura = float(request.form.get("altura"))
+
+    db.inserir_aluno(
+        nome,
+        email,
+        telefone,
+        matricula,
+        peso,
+        altura
+    )
+
+    # Guarda a matrícula do aluno na sessão
+    session["aluno"] = matricula
+
+    return redirect(url_for("area_aluno"))
+
+
+@app.route("/editar_meu_perfil")
+def editar_meu_perfil():
+
+    if "aluno" not in session:
+        return redirect(url_for("home"))
+
+    aluno = db.buscar_aluno_por_matricula(session["aluno"])
+
+    if aluno is None:
+        return redirect(url_for("home"))
+
+    return render_template(
+        "editar/editar_meu_perfil.html",
+        aluno=aluno
+    )
+
+
+@app.route("/salvar_meu_perfil", methods=["POST"])
+def salvar_meu_perfil():
+
+    if "aluno" not in session:
+        return redirect(url_for("home"))
+
+    aluno = db.buscar_aluno_por_matricula(session["aluno"])
+
+    if aluno is None:
+        return redirect(url_for("home"))
+
+    db.atualizar_aluno_db(
+        aluno.id,
+        request.form.get("nome"),
+        request.form.get("email"),
+        request.form.get("telefone"),
+        aluno.matricula,
+        request.form.get("peso"),
+        request.form.get("altura")
+    )
+
+    return redirect(url_for("area_aluno"))
+
+
+@app.route("/novo_agendamento")
+def novo_agendamento():
+
+    if "aluno" not in session:
+        return redirect(url_for("home"))
+
+    instrutores = db.listar_instrutores()
+    horarios = db.listar_horarios()
+
+    return render_template(
+        "agendamento_aluno.html",
+        instrutores=instrutores,
+        horarios=horarios
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

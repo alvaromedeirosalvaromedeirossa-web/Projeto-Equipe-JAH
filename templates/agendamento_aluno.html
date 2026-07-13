@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Novo Agendamento</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors:{
+
+                        primary:"#f97316",
+                        dark:"#09090b",
+                        card:"#18181b"
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-dark text-white">
+
+<div class="max-w-4xl mx-auto py-10 px-6">
+
+    <div class="bg-card rounded-3xl border border-zinc-800 p-8 shadow-2xl">
+
+        <h1 class="text-3xl font-bold text-primary mb-2">
+
+            Novo Agendamento
+
+        </h1>
+
+        <p class="text-zinc-400 mb-8">
+
+            Escolha um instrutor e um horário disponível.
+
+        </p>
+
+        <form action="{{ url_for('salvar_agendamento') }}" method="POST">
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 text-zinc-300">
+
+                        Instrutor
+
+                    </label>
+
+                    <select
+                        name="instrutor_id"
+                        required
+                        class="w-full rounded-xl bg-zinc-900 border border-zinc-700 p-4">
+
+                        <option value="">Selecione</option>
+
+                        {% for instrutor in instrutores %}
+
+                        <option value="{{ instrutor.id }}">
+
+                            {{ instrutor.nome }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-zinc-300">
+
+                        Horário
+
+                    </label>
+
+                    <select
+                        name="horario_id"
+                        required
+                        class="w-full rounded-xl bg-zinc-900 border border-zinc-700 p-4">
+
+                        <option value="">Selecione</option>
+
+                        {% for horario in horarios %}
+
+                        <option value="{{ horario.id }}">
+
+                            {{ horario.data }} - {{ horario.hora }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="mt-10 flex justify-between">
+
+                <a
+                    href="{{ url_for('area_aluno') }}"
+                    class="bg-zinc-700 hover:bg-zinc-600 px-8 py-3 rounded-xl">
+
+                    Cancelar
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="bg-primary hover:bg-orange-600 px-8 py-3 rounded-xl font-semibold">
+
+                    Confirmar Agendamento
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

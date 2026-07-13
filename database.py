@@ -1,5 +1,10 @@
 import sqlite3
 from pathlib import Path
+from models.aluno import Aluno
+from models.plano import Plano
+from models.pagamento import Pagamento
+from models.treino import Treino
+from models.agendamento import Agendamento
 
 DB_PATH = Path(__file__).with_name("academia.db")
 
@@ -246,6 +251,34 @@ def atualizar_aluno_db(
 
     conexao.commit()
     conexao.close()
+
+
+def buscar_aluno_por_matricula(matricula):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute(
+        "SELECT * FROM alunos WHERE matricula=?",
+        (matricula,)
+    )
+
+    resultado = cursor.fetchone()
+
+    conexao.close()
+
+    if resultado is None:
+        return None
+
+    return Aluno(
+        resultado[0],
+        resultado[1],
+        resultado[2],
+        resultado[3],
+        resultado[4],
+        resultado[5],
+        resultado[6]
+    )
 
 
 def excluir_aluno(id):
@@ -1190,3 +1223,250 @@ def excluir_treino_exercicios(id):
 
     conexao.commit()
     conexao.close()
+
+
+def buscar_plano_do_aluno(aluno_id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM planos
+        ORDER BY id
+        LIMIT 1
+    """)
+
+    plano = cursor.fetchone()
+
+    conexao.close()
+
+    return plano
+
+
+def buscar_pagamentos_aluno(aluno_id):
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT *
+
+        FROM pagamentos
+
+        WHERE aluno_id = ?
+
+        ORDER BY id DESC
+
+    """,(aluno_id,))
+
+    pagamentos = []
+
+    for p in cursor.fetchall():
+
+        pagamentos.append(
+
+            Pagamento(
+                p[0],
+                p[1],
+                p[2],
+                p[3],
+                p[4],
+                p[5]
+            )
+
+        )
+
+    conn.close()
+
+    return pagamentos
+
+
+def buscar_treinos_aluno(aluno_id):
+
+    conn = conectar()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT *
+
+        FROM treinos
+
+        WHERE aluno_id = ?
+
+    """,(aluno_id,))
+
+    lista=[]
+
+    for t in cursor.fetchall():
+
+        lista.append(
+
+            Treino(
+                t[0],
+                t[1],
+                t[2],
+                t[3],
+                t[4]
+            )
+
+        )
+
+    conn.close()
+
+    return lista
+
+
+def buscar_agendamentos_aluno(aluno_id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+
+        SELECT
+
+            h.data,
+            h.hora,
+            i.nome,
+            a.status
+
+        FROM agendamentos a
+
+        INNER JOIN horarios h
+            ON a.horario_id = h.id
+
+        INNER JOIN instrutores i
+            ON a.instrutor_id = i.id
+
+        WHERE a.aluno_id=?
+
+        ORDER BY h.data,h.hora
+
+    """,(aluno_id,))
+
+    dados = cursor.fetchall()
+
+    conexao.close()
+
+    return dados
+
+
+def buscar_aluno_por_matricula(matricula):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute(
+        "SELECT * FROM alunos WHERE matricula=?",
+        (matricula,)
+    )
+
+    resultado = cursor.fetchone()
+
+    conexao.close()
+
+    if resultado:
+
+        return Aluno(
+            resultado[0],
+            resultado[1],
+            resultado[2],
+            resultado[3],
+            resultado[4],
+            resultado[5],
+            resultado[6]
+        )
+
+    return None
+
+
+def buscar_treinos_aluno(aluno_id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM treinos
+        WHERE aluno_id=?
+    """, (aluno_id,))
+
+    dados = cursor.fetchall()
+
+    conexao.close()
+
+    return dados
+
+
+def buscar_pagamentos_aluno(aluno_id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM pagamentos
+        WHERE aluno_id=?
+    """, (aluno_id,))
+
+    dados = cursor.fetchall()
+
+    conexao.close()
+
+    return dados
+
+
+def buscar_plano_do_aluno(aluno_id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM planos
+        LIMIT 1
+    """)
+
+    plano = cursor.fetchone()
+
+    conexao.close()
+
+    return plano
+
+
+def buscar_agendamentos_aluno(aluno_id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+
+        SELECT
+            h.data,
+            h.hora,
+            i.nome,
+            a.status
+
+        FROM agendamentos a
+
+        JOIN horarios h
+            ON a.horario_id = h.id
+
+        JOIN instrutores i
+            ON a.instrutor_id = i.id
+
+        WHERE a.aluno_id=?
+
+        ORDER BY h.data, h.hora
+
+    """, (aluno_id,))
+
+    dados = cursor.fetchall()
+
+    conexao.close()
+
+    return dados

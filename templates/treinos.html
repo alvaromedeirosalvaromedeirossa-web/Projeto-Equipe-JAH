@@ -67,21 +67,18 @@
                     </div>
 
                     <div class="space-y-1">
+                        <div class="space-y-1">
                         <label class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
                             Aluno
                         </label>
 
-                        <select
-                            name="aluno_id"
-                            required
+                        <select name="aluno_id" required
                             class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white">
+                            <option value="">Selecione um aluno</option>
 
                             {% for aluno in alunos %}
-                                <option value="{{ aluno[0] }}">
-                                    {{ aluno[1] }}
-                                </option>
+                                <option value="{{ aluno[0] }}">{{ aluno[1] }}</option>
                             {% endfor %}
-
                         </select>
                     </div>
 
@@ -90,17 +87,13 @@
                             Instrutor
                         </label>
 
-                        <select
-                            name="instrutor_id"
-                            required
+                        <select name="instrutor_id" required
                             class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white">
+                            <option value="">Selecione um instrutor</option>
 
                             {% for instrutor in instrutores %}
-                                <option value="{{ instrutor[0] }}">
-                                    {{ instrutor[1] }}
-                                </option>
+                                <option value="{{ instrutor[0] }}">{{ instrutor[1] }}</option>
                             {% endfor %}
-
                         </select>
                     </div>
 
