@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+<h2>Novo Horário</h2>
+
+<form method="POST">
+
+<input
+class="form-control mb-3"
+type="date"
+name="data">
+
+<input
+class="form-control mb-3"
+type="time"
+name="hora">
+
+<button class="btn btn-success">
+
+Salvar
+
+</button>
+
+</form>
+
+{% endblock %}

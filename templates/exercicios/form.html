@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<h2>
+
+{% if exercicio %}
+
+Editar Exercício
+
+{% else %}
+
+Novo Exercício
+
+{% endif %}
+
+</h2>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Nome</label>
+
+<input
+
+type="text"
+
+name="nome"
+
+class="form-control"
+
+value="{{ exercicio.nome if exercicio else '' }}"
+
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Grupo Muscular</label>
+
+<input
+
+type="text"
+
+name="grupo_muscular"
+
+class="form-control"
+
+value="{{ exercicio.grupo_muscular if exercicio else '' }}"
+
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Séries</label>
+
+<input
+
+type="number"
+
+name="series"
+
+class="form-control"
+
+value="{{ exercicio.series if exercicio else '' }}"
+
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Repetições</label>
+
+<input
+
+type="number"
+
+name="repeticoes"
+
+class="form-control"
+
+value="{{ exercicio.repeticoes if exercicio else '' }}"
+
+required>
+
+</div>
+
+</div>
+
+<button class="btn btn-success">
+
+Salvar
+
+</button>
+
+<a
+
+href="{{ url_for('listar_exercicios') }}"
+
+class="btn btn-secondary">
+
+Cancelar
+
+</a>
+
+</form>
+
+{% endblock %}

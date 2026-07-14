@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+<h2>Novo Agendamento</h2>
+
+<form method="POST">
+
+<select class="form-select mb-3" name="aluno_id">
+
+{% for aluno in alunos %}
+
+<option value="{{ aluno.id }}">
+
+{{ aluno.nome }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+<select class="form-select mb-3" name="instrutor_id">
+
+{% for instrutor in instrutores %}
+
+<option value="{{ instrutor.id }}">
+
+{{ instrutor.nome }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+<div class="mb-3">
+    <label class="form-label">Data do Agendamento</label>
+
+    <input
+        type="date"
+        class="form-control"
+        name="data"
+        required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Horário</label>
+
+    <input
+        type="time"
+        class="form-control"
+        name="hora"
+        required>
+</div>
+
+<select class="form-select mb-3" name="status">
+
+<option>Agendado</option>
+<option>Concluído</option>
+<option>Cancelado</option>
+
+</select>
+
+<button class="btn btn-success">
+
+Salvar
+
+</button>
+
+</form>
+
+{% endblock %}

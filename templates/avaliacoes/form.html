@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+<h2>Nova Avaliação</h2>
+
+<form method="POST">
+
+<select class="form-select mb-3" name="aluno_id">
+
+{% for aluno in alunos %}
+
+<option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+
+{% endfor %}
+
+</select>
+
+<select class="form-select mb-3" name="instrutor_id">
+
+{% for instrutor in instrutores %}
+
+<option value="{{ instrutor.id }}">{{ instrutor.nome }}</option>
+
+{% endfor %}
+
+</select>
+
+<input class="form-control mb-3" name="peso" placeholder="Peso">
+
+<input class="form-control mb-3" name="altura" placeholder="Altura">
+
+<input class="form-control mb-3" name="percentual_gordura" placeholder="% Gordura">
+
+<textarea class="form-control mb-3" name="observacoes"></textarea>
+
+<button class="btn btn-success">Salvar</button>
+
+</form>
+
+{% endblock %}

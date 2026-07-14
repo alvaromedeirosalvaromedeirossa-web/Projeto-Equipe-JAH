@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<h2>{{ aluno.nome }}</h2>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-header">
+
+Dados do Aluno
+
+</div>
+
+<div class="card-body">
+
+<p><b>Email:</b> {{ aluno.email }}</p>
+
+<p><b>Telefone:</b> {{ aluno.telefone }}</p>
+
+<p><b>Matrícula:</b> {{ aluno.matricula }}</p>
+
+<p><b>Peso:</b> {{ aluno.peso }}</p>
+
+<p><b>Altura:</b> {{ aluno.altura }}</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-header">
+
+Treinos
+
+</div>
+
+<div class="card-body">
+
+<ul>
+
+{% for treino in treinos %}
+
+<li>{{ treino.nome }}</li>
+
+{% else %}
+
+<li>Nenhum treino cadastrado.</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="card shadow">
+
+<div class="card-header">
+
+Pagamentos
+
+</div>
+
+<div class="card-body">
+
+<table class="table table-bordered">
+
+<tr>
+
+<th>Data</th>
+
+<th>Valor</th>
+
+<th>Status</th>
+
+</tr>
+
+{% for pagamento in pagamentos %}
+
+<tr>
+
+<td>{{ pagamento.data }}</td>
+
+<td>R$ {{ pagamento.valor }}</td>
+
+<td>{{ pagamento.status }}</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="3">
+
+Nenhum pagamento encontrado.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

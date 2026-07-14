@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<h2>
+
+{% if instrutor %}
+
+Editar Instrutor
+
+{% else %}
+
+Novo Instrutor
+
+{% endif %}
+
+</h2>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Nome</label>
+
+<input
+type="text"
+name="nome"
+class="form-control"
+value="{{ instrutor.nome if instrutor else '' }}"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+value="{{ instrutor.email if instrutor else '' }}"
+required>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<label>Telefone</label>
+
+<input
+type="text"
+name="telefone"
+class="form-control"
+value="{{ instrutor.telefone if instrutor else '' }}">
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<label>CREF</label>
+
+<input
+type="text"
+name="cref"
+class="form-control"
+value="{{ instrutor.cref if instrutor else '' }}"
+required>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<label>Especialidade</label>
+
+<input
+type="text"
+name="especialidade"
+class="form-control"
+value="{{ instrutor.especialidade if instrutor else '' }}">
+
+</div>
+
+</div>
+
+<button class="btn btn-success">
+
+Salvar
+
+</button>
+
+<a
+href="{{ url_for('listar_instrutores') }}"
+class="btn btn-secondary">
+
+Cancelar
+
+</a>
+
+</form>
+
+{% endblock %}

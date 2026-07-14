@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h2>Treinos</h2>
+
+<a href="{{ url_for('novo_treino') }}" class="btn btn-success">
+
+Novo Treino
+
+</a>
+
+</div>
+
+<table class="table table-hover table-striped shadow">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+
+<th>Nome</th>
+
+<th>Aluno</th>
+
+<th>Instrutor</th>
+
+<th width="230">Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for treino in treinos %}
+
+<tr>
+
+<td>{{ treino.id }}</td>
+
+<td>{{ treino.nome }}</td>
+
+<td>{{ treino.aluno_id }}</td>
+
+<td>{{ treino.instrutor_id }}</td>
+
+<td>
+
+<a
+
+class="btn btn-primary btn-sm"
+
+href="{{ url_for('treino_exercicios',treino_id=treino.id) }}">
+
+Exercícios
+
+</a>
+
+<a
+
+class="btn btn-warning btn-sm"
+
+href="{{ url_for('editar_treino',id=treino.id) }}">
+
+Editar
+
+</a>
+
+<a
+
+class="btn btn-danger btn-sm"
+
+onclick="return confirm('Excluir treino?')"
+
+href="{{ url_for('excluir_treino',id=treino.id) }}">
+
+Excluir
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

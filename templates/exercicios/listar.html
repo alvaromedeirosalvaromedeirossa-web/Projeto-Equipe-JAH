@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h2>Exercícios</h2>
+
+    <a href="{{ url_for('novo_exercicio') }}" class="btn btn-success">
+        Novo Exercício
+    </a>
+
+</div>
+
+<table class="table table-hover table-striped shadow">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+<th>Nome</th>
+<th>Grupo Muscular</th>
+<th>Séries</th>
+<th>Repetições</th>
+<th width="180">Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for exercicio in exercicios %}
+
+<tr>
+
+<td>{{ exercicio.id }}</td>
+
+<td>{{ exercicio.nome }}</td>
+
+<td>{{ exercicio.grupo_muscular }}</td>
+
+<td>{{ exercicio.series }}</td>
+
+<td>{{ exercicio.repeticoes }}</td>
+
+<td>
+
+<a class="btn btn-warning btn-sm"
+
+href="{{ url_for('editar_exercicio',id=exercicio.id) }}">
+
+Editar
+
+</a>
+
+<a class="btn btn-danger btn-sm"
+
+onclick="return confirm('Excluir exercício?')"
+
+href="{{ url_for('excluir_exercicio',id=exercicio.id) }}">
+
+Excluir
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

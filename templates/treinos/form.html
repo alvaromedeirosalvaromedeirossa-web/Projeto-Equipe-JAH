@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<h2>
+
+{% if treino %}
+
+Editar Treino
+
+{% else %}
+
+Novo Treino
+
+{% endif %}
+
+</h2>
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label>Nome do Treino</label>
+
+<input
+type="text"
+name="nome"
+class="form-control"
+value="{{ treino.nome if treino else '' }}"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Descrição</label>
+
+<textarea
+name="descricao"
+class="form-control"
+rows="4">{{ treino.descricao if treino else '' }}</textarea>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Aluno</label>
+
+<select
+name="aluno_id"
+class="form-select"
+required>
+
+{% for aluno in alunos %}
+
+<option
+
+value="{{ aluno.id }}"
+
+{% if treino and treino.aluno_id==aluno.id %}
+
+selected
+
+{% endif %}>
+
+{{ aluno.nome }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Instrutor</label>
+
+<select
+
+name="instrutor_id"
+
+class="form-select"
+
+required>
+
+{% for instrutor in instrutores %}
+
+<option
+
+value="{{ instrutor.id }}"
+
+{% if treino and treino.instrutor_id==instrutor.id %}
+
+selected
+
+{% endif %}>
+
+{{ instrutor.nome }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+</div>
+
+<button class="btn btn-success">
+
+Salvar
+
+</button>
+
+<a
+href="{{ url_for('listar_treinos') }}"
+class="btn btn-secondary">
+
+Cancelar
+
+</a>
+
+</form>
+
+{% endblock %}

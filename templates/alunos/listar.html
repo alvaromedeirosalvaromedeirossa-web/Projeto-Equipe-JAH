@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h2>Alunos</h2>
+
+    <a href="{{ url_for('novo_aluno') }}" class="btn btn-success">
+        Novo Aluno
+    </a>
+
+</div>
+
+<form method="GET"
+      action="{{ url_for('buscar_alunos') }}"
+      class="row mb-3">
+
+    <div class="col-md-10">
+
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Pesquisar aluno..."
+            value="{{ pesquisa or '' }}">
+
+    </div>
+
+    <div class="col-md-2 d-grid">
+
+        <button class="btn btn-primary">
+
+            Pesquisar
+
+        </button>
+
+    </div>
+
+</form>
+
+<table class="table table-striped table-hover shadow">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+
+<th>Nome</th>
+
+<th>Email</th>
+
+<th>Matrícula</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for aluno in alunos %}
+
+<tr>
+
+<td>{{ aluno.id }}</td>
+
+<td>{{ aluno.nome }}</td>
+
+<td>{{ aluno.email }}</td>
+
+<td>{{ aluno.matricula }}</td>
+
+<td>
+
+<a
+class="btn btn-info btn-sm"
+href="{{ url_for('detalhes_aluno', id=aluno.id) }}">
+Detalhes
+</a>
+
+<a
+class="btn btn-warning btn-sm"
+href="{{ url_for('editar_aluno', id=aluno.id) }}">
+Editar
+</a>
+
+<a
+class="btn btn-danger btn-sm"
+href="{{ url_for('excluir_aluno', id=aluno.id) }}"
+onclick="return confirm('Deseja excluir este aluno?')">
+
+Excluir
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

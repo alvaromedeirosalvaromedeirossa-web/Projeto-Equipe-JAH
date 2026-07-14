@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+<div class="d-flex justify-content-between mb-3">
+<h2>Planos</h2>
+<a href="{{ url_for('novo_plano') }}" class="btn btn-success">Novo Plano</a>
+</div>
+
+<table class="table table-striped table-hover">
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Nome</th>
+<th>Valor</th>
+<th>Duração</th>
+<th>Ações</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for plano in planos %}
+
+<tr>
+
+<td>{{ plano.id }}</td>
+<td>{{ plano.nome }}</td>
+<td>R$ {{ plano.valor }}</td>
+<td>{{ plano.duracao }} meses</td>
+
+<td>
+
+<a href="{{ url_for('editar_plano',id=plano.id) }}" class="btn btn-warning btn-sm">Editar</a>
+
+<a href="{{ url_for('excluir_plano',id=plano.id) }}" class="btn btn-danger btn-sm">Excluir</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

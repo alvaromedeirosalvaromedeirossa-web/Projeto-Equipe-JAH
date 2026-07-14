@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<h2 class="mb-4">
+
+Dashboard
+
+</h2>
+
+<div class="row">
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-primary shadow">
+
+<div class="card-body text-center">
+
+<h5>Alunos</h5>
+
+<h2>{{ total_alunos }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-success shadow">
+
+<div class="card-body text-center">
+
+<h5>Instrutores</h5>
+
+<h2>{{ total_instrutores }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-danger shadow">
+
+<div class="card-body text-center">
+
+<h5>Exercícios</h5>
+
+<h2>{{ total_exercicios }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-warning shadow">
+
+<div class="card-body text-center">
+
+<h5>Treinos</h5>
+
+<h2>{{ total_treinos }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-info shadow">
+
+<div class="card-body text-center">
+
+<h5>Planos</h5>
+
+<h2>{{ total_planos }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-secondary shadow">
+
+<div class="card-body text-center">
+
+<h5>Pagamentos</h5>
+
+<h2>{{ total_pagamentos }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-dark shadow">
+
+<div class="card-body text-center">
+
+<h5>Avaliações</h5>
+
+<h2>{{ total_avaliacoes }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-primary shadow">
+
+<div class="card-body text-center">
+
+<h5>Agendamentos</h5>
+
+<h2>{{ total_agendamentos }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,227 @@
+/* ===========================
+   ACADEMIA SYSTEM
+=========================== */
+
+body{
+    background:#f4f6f9;
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+}
+
+/* Navbar */
+
+.navbar{
+    background:#0d6efd !important;
+}
+
+.navbar-brand{
+    font-size:24px;
+    font-weight:bold;
+    color:white !important;
+}
+
+.nav-link{
+    color:white !important;
+    margin-left:10px;
+}
+
+.nav-link:hover{
+    color:#ffc107 !important;
+}
+
+/* Cards */
+
+.card{
+    border:none;
+    border-radius:12px;
+    box-shadow:0 6px 15px rgba(0,0,0,.12);
+}
+
+.card-header{
+    background:#0d6efd;
+    color:white;
+    font-weight:bold;
+}
+
+/* Títulos */
+
+h1,h2,h3{
+    color:#0d6efd;
+    font-weight:bold;
+}
+
+/* Botões */
+
+.btn{
+    border-radius:8px;
+}
+
+.btn-success{
+    background:#198754;
+}
+
+.btn-warning{
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+}
+
+.btn-primary{
+    background:#0d6efd;
+}
+
+/* Tabelas */
+
+.table{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.table thead{
+    background:#0d6efd;
+    color:white;
+}
+
+.table-hover tbody tr:hover{
+    background:#e9f3ff;
+}
+
+/* Inputs */
+
+.form-control,
+.form-select{
+
+    border-radius:8px;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#0d6efd;
+
+    box-shadow:0 0 8px rgba(13,110,253,.3);
+
+}
+
+/* Dashboard */
+
+.dashboard-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    text-align:center;
+
+    transition:.3s;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.dashboard-card h2{
+
+    font-size:40px;
+
+}
+
+.dashboard-card p{
+
+    font-size:18px;
+
+}
+
+/* Rodapé */
+
+footer{
+
+    margin-top:40px;
+
+    text-align:center;
+
+    color:#777;
+
+}
+
+/* Alertas */
+
+.alert{
+
+    border-radius:10px;
+
+}
+
+/* Login */
+
+.login-box{
+
+    width:420px;
+
+    margin:70px auto;
+
+}
+
+.login-card{
+
+    padding:35px;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+
+}
+
+.login-card h2{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+/* Animações */
+
+.btn:hover{
+
+    transform:scale(1.03);
+
+    transition:.2s;
+
+}
+
+.card:hover{
+
+    transition:.3s;
+
+}
+
+/* Responsivo */
+
+@media(max-width:768px){
+
+.login-box{
+
+width:95%;
+
+}
+
+.dashboard-card{
+
+margin-bottom:20px;
+
+}
+
+}
